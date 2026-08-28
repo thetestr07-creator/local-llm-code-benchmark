@@ -1,0 +1,6 @@
+{
+  "task": "bugfix-01-invoice-cents",
+  "category": "bugfix",
+  "passed": false,
+  "exit_code": 1
+}

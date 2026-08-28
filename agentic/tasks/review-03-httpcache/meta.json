@@ -1,0 +1,8 @@
+{
+  "id": "review-03-httpcache",
+  "category": "review",
+  "summary": "Spot the off-by-one byte-range satisfiability bug in _resolve (content.py): uses `first > length` where SPEC requires `first >= length`, so bytes=L- on an L-byte body returns an empty body instead of HTTP 416; correct parser in ranges.py is a distractor. 16 reviewable functions; write findings.json.",
+  "heldout_cmd": "python3 __heldout__/test_httpcache_heldout.py",
+  "max_turns": 10,
+  "max_tokens_per_turn": 1200
+}

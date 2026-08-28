@@ -1,0 +1,6 @@
+{
+  "task": "failrecover-02-brackets",
+  "category": "failrecover",
+  "passed": false,
+  "exit_code": 1
+}

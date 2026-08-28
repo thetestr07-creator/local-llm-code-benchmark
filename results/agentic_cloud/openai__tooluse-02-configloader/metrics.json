@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "tooluse-02-configloader",
+  "category": "tooluse",
+  "turns": 1,
+  "input_tokens": 496,
+  "output_tokens": 33,
+  "ttft_s": 1.15,
+  "wall_s": 1.2,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

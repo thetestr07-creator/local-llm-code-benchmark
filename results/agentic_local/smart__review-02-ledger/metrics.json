@@ -1,0 +1,15 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "review-02-ledger",
+  "category": "review",
+  "turns": 9,
+  "input_tokens": 13659,
+  "output_tokens": 73,
+  "ttft_s": 1.396,
+  "wall_s": 13.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 7
+  },
+  "api_cost_usd": 0.0
+}

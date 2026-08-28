@@ -1,0 +1,16 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "multiedit-03-coupons",
+  "category": "multiedit",
+  "turns": 15,
+  "input_tokens": 198129,
+  "output_tokens": 22242,
+  "ttft_s": 17.92,
+  "wall_s": 283.9,
+  "tool_calls": {
+    "read_file": 8,
+    "write_file": 4,
+    "run_command": 3
+  },
+  "api_cost_usd": 0.928
+}

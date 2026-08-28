@@ -1,0 +1,8 @@
+{
+  "id": "multiedit-02-ratelimit",
+  "category": "multiedit",
+  "summary": "Add a token-bucket rate limiter as a new module and wire it into the Gateway dispatch path.",
+  "heldout_cmd": "python3 __heldout__/test_ratelimit_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

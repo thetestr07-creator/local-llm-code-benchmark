@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "tooluse-03-taskflow",
+  "category": "tooluse",
+  "turns": 14,
+  "input_tokens": 27333,
+  "output_tokens": 1084,
+  "ttft_s": 1.995,
+  "wall_s": 71.0,
+  "tool_calls": {
+    "list_files": 2,
+    "read_file": 2,
+    "write_file": 1,
+    "run_command": 8
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,13 @@
+cmd: python3 __heldout__/test_flatten_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__failrecover-03-flatten_v/eval/__heldout__/test_flatten_heldout.py", line 5, in <module>
+    assert flatten([1, 2, 3]) == [1, 2, 3]
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/user/agentic/contest_cloud/openai__failrecover-03-flatten_v/eval/pkg/core.py", line 7, in flatten
+    raise NotImplementedError
+NotImplementedError

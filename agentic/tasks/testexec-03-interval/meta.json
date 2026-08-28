@@ -1,0 +1,8 @@
+{
+  "id": "testexec-03-interval",
+  "category": "testexec",
+  "summary": "Implement a merged half-open IntervalSet class (add/remove/contains/measure/overlaps) to pass a visible suite; held-out adds adjacency, splitting, ordering and boundary edge cases.",
+  "heldout_cmd": "python3 __heldout__/test_intervalset_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

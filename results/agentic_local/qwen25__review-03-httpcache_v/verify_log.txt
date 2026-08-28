@@ -1,0 +1,10 @@
+cmd: python3 __heldout__/test_httpcache_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/qwen25__review-03-httpcache_v/eval/__heldout__/test_httpcache_heldout.py", line 48, in <module>
+    raise AssertionError("identified %r, expected %r" % (name, BUGGY))
+AssertionError: identified 'parse_http_date', expected '_resolve'

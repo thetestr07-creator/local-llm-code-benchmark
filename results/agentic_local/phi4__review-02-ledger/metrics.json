@@ -1,0 +1,16 @@
+{
+  "model": "Phi-4",
+  "task": "review-02-ledger",
+  "category": "review",
+  "turns": 10,
+  "input_tokens": 19241,
+  "output_tokens": 1675,
+  "ttft_s": 1.417,
+  "wall_s": 90.5,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 8,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

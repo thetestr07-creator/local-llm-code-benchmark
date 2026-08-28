@@ -1,0 +1,8 @@
+{
+  "id": "tooluse-03-taskflow",
+  "category": "tooluse",
+  "summary": "Exponential retry backoff never applies its max_delay cap. Bug is a missing min() in policy/backoff.compute_delay, reached via engine.run -> scheduler.on_failure -> RetryPolicy.next_delay. Agent must trace the retry path across core + policy subpackages to find it.",
+  "heldout_cmd": "python3 __heldout__/test_backoff_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

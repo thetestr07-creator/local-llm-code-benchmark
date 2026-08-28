@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "failrecover-01-roman",
+  "category": "failrecover",
+  "turns": 5,
+  "input_tokens": 2764,
+  "output_tokens": 281,
+  "ttft_s": 1.231,
+  "wall_s": 7.5,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

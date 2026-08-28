@@ -1,0 +1,15 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "review-03-httpcache",
+  "category": "review",
+  "turns": 10,
+  "input_tokens": 23184,
+  "output_tokens": 95,
+  "ttft_s": 1.752,
+  "wall_s": 16.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 9
+  },
+  "api_cost_usd": 0.0
+}

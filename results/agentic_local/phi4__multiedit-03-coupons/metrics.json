@@ -1,0 +1,15 @@
+{
+  "model": "Phi-4",
+  "task": "multiedit-03-coupons",
+  "category": "multiedit",
+  "turns": 7,
+  "input_tokens": 14069,
+  "output_tokens": 2143,
+  "ttft_s": 4.739,
+  "wall_s": 112.7,
+  "tool_calls": {
+    "write_file": 4,
+    "read_file": 2
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,4 @@
+# Reproducibility guard: never convert line endings on checkout. Every file lands byte-for-byte
+# as stored, so the SHA-256 values in agentic/FROZEN_MANIFEST.json verify on any OS (incl. Windows
+# with core.autocrlf=true). Do not remove this file.
+* -text

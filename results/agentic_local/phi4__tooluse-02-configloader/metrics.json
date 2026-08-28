@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "tooluse-02-configloader",
+  "category": "tooluse",
+  "turns": 15,
+  "input_tokens": 28776,
+  "output_tokens": 1874,
+  "ttft_s": 1.422,
+  "wall_s": 109.7,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "write_file": 2,
+    "run_command": 9
+  },
+  "api_cost_usd": 0.0
+}

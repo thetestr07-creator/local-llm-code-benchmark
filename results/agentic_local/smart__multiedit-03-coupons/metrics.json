@@ -1,0 +1,15 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "multiedit-03-coupons",
+  "category": "multiedit",
+  "turns": 8,
+  "input_tokens": 17376,
+  "output_tokens": 1904,
+  "ttft_s": 3.529,
+  "wall_s": 40.1,
+  "tool_calls": {
+    "list_files": 1,
+    "write_file": 6
+  },
+  "api_cost_usd": 0.0
+}

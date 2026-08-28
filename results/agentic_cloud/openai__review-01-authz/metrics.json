@@ -1,0 +1,14 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "review-01-authz",
+  "category": "review",
+  "turns": 2,
+  "input_tokens": 830,
+  "output_tokens": 146,
+  "ttft_s": 0.998,
+  "wall_s": 5.0,
+  "tool_calls": {
+    "list_files": 1
+  },
+  "api_cost_usd": 0.0002
+}

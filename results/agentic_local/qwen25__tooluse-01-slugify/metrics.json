@@ -1,0 +1,17 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "tooluse-01-slugify",
+  "category": "tooluse",
+  "turns": 5,
+  "input_tokens": 2677,
+  "output_tokens": 170,
+  "ttft_s": 1.44,
+  "wall_s": 11.7,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

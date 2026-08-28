@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "multiedit-02-ratelimit",
+  "category": "multiedit",
+  "turns": 15,
+  "input_tokens": 32208,
+  "output_tokens": 1025,
+  "ttft_s": 2.627,
+  "wall_s": 28.8,
+  "tool_calls": {
+    "list_files": 2,
+    "write_file": 6,
+    "run_command": 6
+  },
+  "api_cost_usd": 0.0
+}

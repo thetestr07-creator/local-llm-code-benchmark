@@ -1,0 +1,8 @@
+{
+  "id": "review-02-ledger",
+  "category": "review",
+  "summary": "Spot the logic bug in running_balance (sets balance = amt instead of accumulating += amt, ignoring opening balance and prior lines) among 10 reviewable functions; write findings.json.",
+  "heldout_cmd": "python3 __heldout__/test_ledger_heldout.py",
+  "max_turns": 10,
+  "max_tokens_per_turn": 1200
+}

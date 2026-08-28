@@ -1,0 +1,13 @@
+cmd: python3 __heldout__/test_roman_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__failrecover-01-roman_v/eval/__heldout__/test_roman_heldout.py", line 9, in <module>
+    got = roman_to_int(s)
+          ^^^^^^^^^^^^^^^
+  File "/home/user/agentic/contest_cloud/openai__failrecover-01-roman_v/eval/pkg/core.py", line 7, in roman_to_int
+    raise NotImplementedError
+NotImplementedError

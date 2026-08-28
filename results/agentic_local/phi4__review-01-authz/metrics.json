@@ -1,0 +1,16 @@
+{
+  "model": "Phi-4",
+  "task": "review-01-authz",
+  "category": "review",
+  "turns": 4,
+  "input_tokens": 2139,
+  "output_tokens": 341,
+  "ttft_s": 1.644,
+  "wall_s": 19.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

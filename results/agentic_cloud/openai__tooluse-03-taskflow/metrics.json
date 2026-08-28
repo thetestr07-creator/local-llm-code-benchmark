@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "tooluse-03-taskflow",
+  "category": "tooluse",
+  "turns": 1,
+  "input_tokens": 539,
+  "output_tokens": 50,
+  "ttft_s": 0.877,
+  "wall_s": 1.5,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

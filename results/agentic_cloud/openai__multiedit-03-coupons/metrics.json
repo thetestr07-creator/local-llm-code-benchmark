@@ -1,0 +1,14 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "multiedit-03-coupons",
+  "category": "multiedit",
+  "turns": 2,
+  "input_tokens": 2761,
+  "output_tokens": 100,
+  "ttft_s": 1.992,
+  "wall_s": 3.4,
+  "tool_calls": {
+    "list_files": 1
+  },
+  "api_cost_usd": 0.0003
+}

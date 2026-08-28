@@ -1,0 +1,9 @@
+[
+  {
+    "turn": 0,
+    "assistant": "{\"buggy_function\": \"parse_range_header\"}",
+    "action": null,
+    "in": 699,
+    "out": 995
+  }
+]

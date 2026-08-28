@@ -1,0 +1,12 @@
+cmd: python3 __heldout__/test_coupons_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/smart__multiedit-03-coupons_v/eval/__heldout__/test_coupons_heldout.py", line 8, in <module>
+    from shop.model.cart import Cart
+  File "/home/user/agentic/contest_local/smart__multiedit-03-coupons_v/eval/shop/model/cart.py", line 1, in <module>
+    from shop.model.money import Money
+ImportError: cannot import name 'Money' from 'shop.model.money' (/home/user/agentic/contest_local/smart__multiedit-03-coupons_v/eval/shop/model/money.py)

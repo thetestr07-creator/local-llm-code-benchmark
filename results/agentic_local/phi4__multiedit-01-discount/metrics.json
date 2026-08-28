@@ -1,0 +1,16 @@
+{
+  "model": "Phi-4",
+  "task": "multiedit-01-discount",
+  "category": "multiedit",
+  "turns": 5,
+  "input_tokens": 4040,
+  "output_tokens": 555,
+  "ttft_s": 1.178,
+  "wall_s": 29.6,
+  "tool_calls": {
+    "write_file": 2,
+    "read_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

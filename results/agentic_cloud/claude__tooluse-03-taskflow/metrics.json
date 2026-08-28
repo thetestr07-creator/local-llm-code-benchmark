@@ -1,0 +1,16 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "tooluse-03-taskflow",
+  "category": "tooluse",
+  "turns": 4,
+  "input_tokens": 3910,
+  "output_tokens": 435,
+  "ttft_s": 3.212,
+  "wall_s": 13.0,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0183
+}

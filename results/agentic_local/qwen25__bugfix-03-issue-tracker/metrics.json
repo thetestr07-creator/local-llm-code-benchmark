@@ -1,0 +1,17 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "turns": 7,
+  "input_tokens": 8982,
+  "output_tokens": 529,
+  "ttft_s": 1.888,
+  "wall_s": 32.6,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 3
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,6 @@
+{
+  "task": "testexec-01-stats",
+  "category": "testexec",
+  "passed": false,
+  "exit_code": 1
+}

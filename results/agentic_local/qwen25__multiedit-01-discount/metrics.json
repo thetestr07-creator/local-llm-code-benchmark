@@ -1,0 +1,17 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "multiedit-01-discount",
+  "category": "multiedit",
+  "turns": 6,
+  "input_tokens": 4443,
+  "output_tokens": 362,
+  "ttft_s": 1.36,
+  "wall_s": 22.0,
+  "tool_calls": {
+    "list_files": 1,
+    "write_file": 2,
+    "read_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

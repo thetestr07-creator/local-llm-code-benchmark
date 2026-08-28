@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_slug_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__tooluse-01-slugify_v/eval/__heldout__/test_slug_heldout.py", line 16, in <module>
+    assert got == want, "slugify(%r) -> %r, expected %r" % (src, got, want)
+           ^^^^^^^^^^^
+AssertionError: slugify('Hello,  World!') -> 'hello,--world!', expected 'hello-world'

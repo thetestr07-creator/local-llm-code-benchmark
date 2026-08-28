@@ -1,0 +1,8 @@
+{
+  "id": "failrecover-03-flatten",
+  "category": "failrecover",
+  "summary": "flatten to any depth; a one-level first attempt fails the nested visible test, forcing recursion.",
+  "heldout_cmd": "python3 __heldout__/test_flatten_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

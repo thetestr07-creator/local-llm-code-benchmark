@@ -1,0 +1,17 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "testexec-02-moneyfmt",
+  "category": "testexec",
+  "turns": 7,
+  "input_tokens": 11105,
+  "output_tokens": 1025,
+  "ttft_s": 3.057,
+  "wall_s": 59.0,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 2,
+    "run_command": 2
+  },
+  "api_cost_usd": 0.0
+}

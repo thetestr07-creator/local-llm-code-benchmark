@@ -1,0 +1,8 @@
+{
+  "id": "testexec-02-moneyfmt",
+  "category": "testexec",
+  "summary": "Implement stubbed parse_amount/format_cents money helpers to pass a visible suite; held-out adds negative, rounding, grouping and whitespace edge cases.",
+  "heldout_cmd": "python3 __heldout__/test_money_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

@@ -1,0 +1,12 @@
+cmd: python3 __heldout__/test_intervalset_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/phi4__testexec-03-interval_v/eval/__heldout__/test_intervalset_heldout.py", line 6, in <module>
+    from intervalset.core import IntervalSet
+  File "/home/user/agentic/contest_local/phi4__testexec-03-interval_v/eval/intervalset/__init__.py", line 2, in <module>
+    from .core import IntervalSet
+ImportError: cannot import name 'IntervalSet' from 'intervalset.core' (/home/user/agentic/contest_local/phi4__testexec-03-interval_v/eval/intervalset/core.py)

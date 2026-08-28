@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "testexec-02-moneyfmt",
+  "category": "testexec",
+  "turns": 5,
+  "input_tokens": 7570,
+  "output_tokens": 1316,
+  "ttft_s": 3.196,
+  "wall_s": 68.7,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

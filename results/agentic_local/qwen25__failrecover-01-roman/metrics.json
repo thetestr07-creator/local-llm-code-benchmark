@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "failrecover-01-roman",
+  "category": "failrecover",
+  "turns": 4,
+  "input_tokens": 1934,
+  "output_tokens": 236,
+  "ttft_s": 1.397,
+  "wall_s": 14.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

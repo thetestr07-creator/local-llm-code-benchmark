@@ -1,0 +1,8 @@
+{
+  "id": "multiedit-03-coupons",
+  "category": "multiedit",
+  "summary": "Thread a coupon-code discount feature through the model, store, service and api layers of a layered shop app.",
+  "heldout_cmd": "python3 __heldout__/test_coupons_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

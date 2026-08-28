@@ -1,0 +1,10 @@
+cmd: python3 __heldout__/test_ratelimit_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/smart__multiedit-02-ratelimit_v/eval/__heldout__/test_ratelimit_heldout.py", line 4, in <module>
+    from gwlib.clock import ManualClock
+ImportError: cannot import name 'ManualClock' from 'gwlib.clock' (/home/user/agentic/contest_local/smart__multiedit-02-ratelimit_v/eval/gwlib/clock.py)

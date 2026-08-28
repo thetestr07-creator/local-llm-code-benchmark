@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "review-03-httpcache",
+  "category": "review",
+  "turns": 1,
+  "input_tokens": 699,
+  "output_tokens": 995,
+  "ttft_s": 27.621,
+  "wall_s": 28.0,
+  "tool_calls": {},
+  "api_cost_usd": 0.0008
+}

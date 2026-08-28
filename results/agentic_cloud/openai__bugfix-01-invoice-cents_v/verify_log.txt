@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_money_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__bugfix-01-invoice-cents_v/eval/__heldout__/test_money_heldout.py", line 12, in <module>
+    assert got == cents, "to_cents(%r) -> %r, expected %d" % (dollars, got, cents)
+           ^^^^^^^^^^^^
+AssertionError: to_cents(1.15) -> 114, expected 115

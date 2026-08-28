@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "failrecover-03-flatten",
+  "category": "failrecover",
+  "turns": 6,
+  "input_tokens": 3130,
+  "output_tokens": 138,
+  "ttft_s": 0.796,
+  "wall_s": 5.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "failrecover-02-brackets",
+  "category": "failrecover",
+  "turns": 4,
+  "input_tokens": 1696,
+  "output_tokens": 172,
+  "ttft_s": 0.944,
+  "wall_s": 10.8,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

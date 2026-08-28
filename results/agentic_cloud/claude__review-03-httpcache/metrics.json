@@ -1,0 +1,16 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "review-03-httpcache",
+  "category": "review",
+  "turns": 6,
+  "input_tokens": 26837,
+  "output_tokens": 5091,
+  "ttft_s": 21.394,
+  "wall_s": 86.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 3,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.1569
+}

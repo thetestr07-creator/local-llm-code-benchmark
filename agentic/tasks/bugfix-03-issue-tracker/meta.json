@@ -1,0 +1,8 @@
+{
+  "id": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "summary": "Shared-mutable-list aliasing across issues created from one template, surfacing through the service + command router (multi-package integration).",
+  "heldout_cmd": "python3 __heldout__/test_tracker_heldout.py",
+  "max_turns": 14,
+  "max_tokens_per_turn": 1500
+}

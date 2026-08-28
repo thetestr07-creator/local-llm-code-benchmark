@@ -1,0 +1,15 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "review-01-authz",
+  "category": "review",
+  "turns": 3,
+  "input_tokens": 2143,
+  "output_tokens": 385,
+  "ttft_s": 9.567,
+  "wall_s": 12.7,
+  "tool_calls": {
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0122
+}

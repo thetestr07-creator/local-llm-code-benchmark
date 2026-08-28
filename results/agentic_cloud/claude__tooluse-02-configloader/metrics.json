@@ -1,0 +1,16 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "tooluse-02-configloader",
+  "category": "tooluse",
+  "turns": 4,
+  "input_tokens": 3428,
+  "output_tokens": 411,
+  "ttft_s": 2.548,
+  "wall_s": 17.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0164
+}

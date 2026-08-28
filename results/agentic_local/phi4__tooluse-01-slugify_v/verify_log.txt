@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_slug_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/phi4__tooluse-01-slugify_v/eval/__heldout__/test_slug_heldout.py", line 16, in <module>
+    assert got == want, "slugify(%r) -> %r, expected %r" % (src, got, want)
+           ^^^^^^^^^^^
+AssertionError: slugify('Python 3.12 rocks') -> 'python-312-rocks', expected 'python-3-12-rocks'

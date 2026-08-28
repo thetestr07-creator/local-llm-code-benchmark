@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "turns": 8,
+  "input_tokens": 14907,
+  "output_tokens": 441,
+  "ttft_s": 1.475,
+  "wall_s": 19.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 5,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

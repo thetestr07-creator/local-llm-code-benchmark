@@ -1,0 +1,17 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "bugfix-01-invoice-cents",
+  "category": "bugfix",
+  "turns": 5,
+  "input_tokens": 3146,
+  "output_tokens": 278,
+  "ttft_s": 1.12,
+  "wall_s": 9.8,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0136
+}

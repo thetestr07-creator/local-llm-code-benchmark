@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "review-01-authz",
+  "category": "review",
+  "turns": 4,
+  "input_tokens": 1778,
+  "output_tokens": 40,
+  "ttft_s": 1.904,
+  "wall_s": 5.2,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

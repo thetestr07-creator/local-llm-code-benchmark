@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "testexec-01-stats",
+  "category": "testexec",
+  "turns": 5,
+  "input_tokens": 3354,
+  "output_tokens": 607,
+  "ttft_s": 1.618,
+  "wall_s": 32.6,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "tooluse-01-slugify",
+  "category": "tooluse",
+  "turns": 9,
+  "input_tokens": 10952,
+  "output_tokens": 953,
+  "ttft_s": 1.687,
+  "wall_s": 63.3,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 5
+  },
+  "api_cost_usd": 0.0
+}

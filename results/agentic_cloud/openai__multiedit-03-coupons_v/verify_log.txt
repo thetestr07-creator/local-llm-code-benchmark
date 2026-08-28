@@ -1,0 +1,10 @@
+cmd: python3 __heldout__/test_coupons_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__multiedit-03-coupons_v/eval/__heldout__/test_coupons_heldout.py", line 6, in <module>
+    from shop.model.coupon import Coupon
+ModuleNotFoundError: No module named 'shop.model.coupon'

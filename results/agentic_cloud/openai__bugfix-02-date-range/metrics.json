@@ -1,0 +1,17 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "bugfix-02-date-range",
+  "category": "bugfix",
+  "turns": 11,
+  "input_tokens": 21413,
+  "output_tokens": 2130,
+  "ttft_s": 1.415,
+  "wall_s": 64.4,
+  "tool_calls": {
+    "list_files": 2,
+    "run_command": 6,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0036
+}

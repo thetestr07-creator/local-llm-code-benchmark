@@ -1,0 +1,8 @@
+{
+  "id": "review-01-authz",
+  "category": "review",
+  "summary": "Spot the auth-bypass (can_edit uses != instead of ==) among 4 functions; write findings.json.",
+  "heldout_cmd": "python3 __heldout__/test_review_heldout.py",
+  "max_turns": 10,
+  "max_tokens_per_turn": 1200
+}

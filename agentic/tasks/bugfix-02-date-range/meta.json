@@ -1,0 +1,8 @@
+{
+  "id": "bugfix-02-date-range",
+  "category": "bugfix",
+  "summary": "Off-by-one (exclusive vs inclusive end) in a date-range/billing library (multi-file).",
+  "heldout_cmd": "python3 __heldout__/test_daterange_heldout.py",
+  "max_turns": 14,
+  "max_tokens_per_turn": 1500
+}

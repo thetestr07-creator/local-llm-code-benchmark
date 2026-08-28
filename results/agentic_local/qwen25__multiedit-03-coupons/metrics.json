@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "multiedit-03-coupons",
+  "category": "multiedit",
+  "turns": 9,
+  "input_tokens": 22343,
+  "output_tokens": 2711,
+  "ttft_s": 4.678,
+  "wall_s": 149.2,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 6
+  },
+  "api_cost_usd": 0.0
+}

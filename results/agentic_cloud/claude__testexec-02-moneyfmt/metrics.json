@@ -1,0 +1,17 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "testexec-02-moneyfmt",
+  "category": "testexec",
+  "turns": 7,
+  "input_tokens": 26442,
+  "output_tokens": 3725,
+  "ttft_s": 21.616,
+  "wall_s": 56.5,
+  "tool_calls": {
+    "read_file": 2,
+    "list_files": 1,
+    "run_command": 2,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.1352
+}

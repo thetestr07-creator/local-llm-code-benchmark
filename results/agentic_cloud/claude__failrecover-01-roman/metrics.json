@@ -1,0 +1,16 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "failrecover-01-roman",
+  "category": "failrecover",
+  "turns": 4,
+  "input_tokens": 2825,
+  "output_tokens": 416,
+  "ttft_s": 3.158,
+  "wall_s": 11.1,
+  "tool_calls": {
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0147
+}

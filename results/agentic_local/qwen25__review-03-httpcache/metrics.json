@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "review-03-httpcache",
+  "category": "review",
+  "turns": 6,
+  "input_tokens": 8237,
+  "output_tokens": 62,
+  "ttft_s": 1.727,
+  "wall_s": 10.6,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 3,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

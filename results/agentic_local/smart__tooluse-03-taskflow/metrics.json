@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "tooluse-03-taskflow",
+  "category": "tooluse",
+  "turns": 5,
+  "input_tokens": 5129,
+  "output_tokens": 313,
+  "ttft_s": 1.416,
+  "wall_s": 10.5,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

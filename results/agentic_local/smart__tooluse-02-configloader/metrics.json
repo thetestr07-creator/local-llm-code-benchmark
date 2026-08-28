@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "tooluse-02-configloader",
+  "category": "tooluse",
+  "turns": 4,
+  "input_tokens": 2965,
+  "output_tokens": 286,
+  "ttft_s": 1.436,
+  "wall_s": 8.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

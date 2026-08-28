@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "review-02-ledger",
+  "category": "review",
+  "turns": 1,
+  "input_tokens": 587,
+  "output_tokens": 33,
+  "ttft_s": 1.125,
+  "wall_s": 1.1,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

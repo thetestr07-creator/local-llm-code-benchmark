@@ -1,0 +1,9 @@
+[
+  {
+    "turn": 0,
+    "assistant": "We need to list files.ACTION: list_files<|message|><|start|>assistant<|channel|>final<|message|>ACTION: list_files",
+    "action": null,
+    "in": 539,
+    "out": 50
+  }
+]

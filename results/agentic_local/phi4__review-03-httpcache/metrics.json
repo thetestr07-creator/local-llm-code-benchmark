@@ -1,0 +1,16 @@
+{
+  "model": "Phi-4",
+  "task": "review-03-httpcache",
+  "category": "review",
+  "turns": 8,
+  "input_tokens": 14195,
+  "output_tokens": 1094,
+  "ttft_s": 2.254,
+  "wall_s": 64.1,
+  "tool_calls": {
+    "read_file": 5,
+    "list_files": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

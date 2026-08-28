@@ -1,0 +1,62 @@
+{
+  "Qwen2.5-Coder-14B (coder)": {
+    "HumanEval": {
+      "pass_at_1": 87.8,
+      "passed": 144,
+      "total": 164,
+      "gen_errors": 0,
+      "prompt_tokens": 30213,
+      "completion_tokens": 20677,
+      "secs": 1169
+    },
+    "MBPP": {
+      "pass_at_1": 85.0,
+      "passed": 363,
+      "total": 427,
+      "gen_errors": 0,
+      "prompt_tokens": 72708,
+      "completion_tokens": 22461,
+      "secs": 1473
+    }
+  },
+  "Phi-4 (reviewer)": {
+    "HumanEval": {
+      "pass_at_1": 85.4,
+      "passed": 140,
+      "total": 164,
+      "gen_errors": 0,
+      "prompt_tokens": 26151,
+      "completion_tokens": 23940,
+      "secs": 1279
+    },
+    "MBPP": {
+      "pass_at_1": 82.4,
+      "passed": 352,
+      "total": 427,
+      "gen_errors": 0,
+      "prompt_tokens": 59547,
+      "completion_tokens": 22061,
+      "secs": 1417
+    }
+  },
+  "Qwen3-30B-A3B (30B)": {
+    "HumanEval": {
+      "pass_at_1": 81.7,
+      "passed": 134,
+      "total": 164,
+      "gen_errors": 0,
+      "prompt_tokens": 26769,
+      "completion_tokens": 17954,
+      "secs": 465
+    },
+    "MBPP": {
+      "pass_at_1": 85.0,
+      "passed": 363,
+      "total": 427,
+      "gen_errors": 0,
+      "prompt_tokens": 63741,
+      "completion_tokens": 23827,
+      "secs": 748
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "failrecover-03-flatten",
+  "category": "failrecover",
+  "turns": 1,
+  "input_tokens": 374,
+  "output_tokens": 33,
+  "ttft_s": 1.245,
+  "wall_s": 1.2,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

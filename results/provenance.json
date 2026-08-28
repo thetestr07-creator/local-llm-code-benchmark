@@ -1,0 +1,56 @@
+{
+  "captured_at_epoch": 1787768381,
+  "harness": {
+    "file": "benchmark_instrumented.py",
+    "sha256": "4ebc16f9fd25d2f7a02fd9751771d19391f69734849b491d0aae5b6437e85339",
+    "size_bytes": 11533
+  },
+  "scoring": "in-harness (see harness sha256)",
+  "models": {
+    "qwen25 (Qwen2.5-Coder-14B)": {
+      "gguf": "Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf",
+      "quantization": "Q4_K_M",
+      "size_bytes": 8988111072,
+      "weights_sha256": "2946d28c9e1bb2bcae6d42e8678863a31775df6f740315c7d7e6d6b6411f5937"
+    },
+    "phi4 (Phi-4)": {
+      "gguf": "phi-4-Q4_K_M.gguf",
+      "quantization": "Q4_K_M",
+      "size_bytes": 9053114816,
+      "weights_sha256": "009aba717c09d4a35890c7d35eb59d54e1dba884c7c526e7197d9c13ab5911d9"
+    },
+    "smart (Qwen3-30B-A3B)": {
+      "gguf": "Qwen_Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf",
+      "quantization": "Q4_K_M",
+      "size_bytes": 18632183808,
+      "weights_sha256": "382b4f5a164d200f93790ee0e339fae12852896d23485cfb203ce868fea33a95"
+    }
+  },
+  "datasets": {
+    "HumanEval": {
+      "file": "HumanEval.jsonl.gz",
+      "sha256": "b796127e635a67f93fb35c04f4cb03cf06f38c8072ee7cee8833d7bee06979ef",
+      "size_bytes": 44877
+    },
+    "MBPP-sanitized": {
+      "file": "sanitized-mbpp.json",
+      "sha256": "ca95deaa9a01ef0a6f439f88bcf0dd3db3563d22f22aad6cae04ebb9a8d8c8e9",
+      "size_bytes": 255053
+    }
+  },
+  "inference": {
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "decode": "greedy",
+    "stream": true,
+    "retry_policy": "1 retry on transport error only; NO retry on wrong answer (pass@1)",
+    "scoring": "generated code executed against the benchmark's own held-out unit tests; binary pass/fail",
+    "same_for_all_models": true,
+    "per_model_tuning": "none"
+  },
+  "serving_flags": {
+    "local-qwen25": "-m /home/user/local-model-cache/Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf -a qwen25_coder_14b_q4 --host LOCAL_GATEWAY --port 18510 --api-key-file <KEYFILE> -c 16384 -np 2 -ngl 99",
+    "local-phi4": "-m /home/user/local-model-cache/phi-4-Q4_K_M.gguf -a phi4_14b_q4 --host LOCAL_GATEWAY --port 18511 --api-key-file <KEYFILE> -c 16384 -np 4 -ngl 99",
+    "local-qwen3": "-m /home/user/local-model-cache/Qwen_Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf -a qwen3_30b_a3b_q4 --host LOCAL_GATEWAY --port 18512 --api-key-file <KEYFILE> -c 8192 -np 1 -ngl 99 -ts 1,1"
+  }
+}

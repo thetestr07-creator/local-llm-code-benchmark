@@ -1,0 +1,16 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "testexec-03-interval",
+  "category": "testexec",
+  "turns": 4,
+  "input_tokens": 10343,
+  "output_tokens": 2001,
+  "ttft_s": 12.195,
+  "wall_s": 27.0,
+  "tool_calls": {
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.061
+}

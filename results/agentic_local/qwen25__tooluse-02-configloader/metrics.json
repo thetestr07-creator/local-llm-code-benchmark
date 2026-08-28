@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "tooluse-02-configloader",
+  "category": "tooluse",
+  "turns": 5,
+  "input_tokens": 4320,
+  "output_tokens": 300,
+  "ttft_s": 1.413,
+  "wall_s": 19.9,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

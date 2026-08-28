@@ -1,0 +1,8 @@
+{
+  "id": "failrecover-02-brackets",
+  "category": "failrecover",
+  "summary": "is_balanced; a naive counting approach fails '([)]' in the visible test, forcing a stack-based fix.",
+  "heldout_cmd": "python3 __heldout__/test_brackets_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

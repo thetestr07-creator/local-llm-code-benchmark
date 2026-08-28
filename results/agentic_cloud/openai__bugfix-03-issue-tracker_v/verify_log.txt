@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_tracker_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__bugfix-03-issue-tracker_v/eval/__heldout__/test_tracker_heldout.py", line 22, in <module>
+    assert a.labels is not b.labels, "issues share the same label list object"
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: issues share the same label list object

@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "review-02-ledger",
+  "category": "review",
+  "turns": 6,
+  "input_tokens": 5467,
+  "output_tokens": 63,
+  "ttft_s": 1.914,
+  "wall_s": 9.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 3,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

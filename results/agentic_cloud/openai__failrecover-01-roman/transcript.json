@@ -1,0 +1,24 @@
+[
+  {
+    "turn": 0,
+    "assistant": "ACTION: list_files<|message|><|start|>assistant<|channel|>analysis<|message|>ACTION: read_file pkg/core.py<|message|><|start|>assistant<|channel|>analysis<|message|>ACTION: read_file pkg/core.py<|message|><|start|>assistant<|channel|>final<|message|>ACTION: read_file pkg/core.py<|message|>",
+    "action": {
+      "tool": "list_files",
+      "arg": "<|message|><|start|>assistant<|channel|>analysis<|message|>ACTION: read_file pkg/core.py<|message|><|start|>assistant<|channel|>analysis<|message|>ACTION: read_file pkg/core.py<|message|><|start|>assistant<|channel|>final<|message|>ACTION: read_file pkg/core.py<|message|>",
+      "content": null
+    },
+    "in": 389,
+    "out": 85
+  },
+  {
+    "turn": 0,
+    "observation": "FILES:\npkg/__init__.py\npkg/core.py\ntests/test_visible.py"
+  },
+  {
+    "turn": 1,
+    "assistant": "",
+    "action": null,
+    "in": 512,
+    "out": 53
+  }
+]

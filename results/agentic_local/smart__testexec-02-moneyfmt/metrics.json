@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "testexec-02-moneyfmt",
+  "category": "testexec",
+  "turns": 5,
+  "input_tokens": 6751,
+  "output_tokens": 781,
+  "ttft_s": 2.5,
+  "wall_s": 18.2,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

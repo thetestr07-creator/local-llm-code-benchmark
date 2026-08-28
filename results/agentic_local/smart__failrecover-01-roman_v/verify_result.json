@@ -1,0 +1,6 @@
+{
+  "task": "failrecover-01-roman",
+  "category": "failrecover",
+  "passed": true,
+  "exit_code": 0
+}

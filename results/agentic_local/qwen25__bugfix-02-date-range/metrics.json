@@ -1,0 +1,17 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "bugfix-02-date-range",
+  "category": "bugfix",
+  "turns": 6,
+  "input_tokens": 6730,
+  "output_tokens": 499,
+  "ttft_s": 1.791,
+  "wall_s": 30.9,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 2
+  },
+  "api_cost_usd": 0.0
+}

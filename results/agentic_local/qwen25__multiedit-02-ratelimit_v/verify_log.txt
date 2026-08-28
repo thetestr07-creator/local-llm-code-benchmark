@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_ratelimit_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/qwen25__multiedit-02-ratelimit_v/eval/__heldout__/test_ratelimit_heldout.py", line 66, in <module>
+    gw = Gateway(router=router, clock=clk4, limiter=limiter)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Gateway.__init__() got an unexpected keyword argument 'limiter'

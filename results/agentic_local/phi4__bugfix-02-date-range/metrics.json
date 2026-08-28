@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "bugfix-02-date-range",
+  "category": "bugfix",
+  "turns": 6,
+  "input_tokens": 6968,
+  "output_tokens": 721,
+  "ttft_s": 1.452,
+  "wall_s": 38.2,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 2
+  },
+  "api_cost_usd": 0.0
+}

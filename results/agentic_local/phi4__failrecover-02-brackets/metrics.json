@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "failrecover-02-brackets",
+  "category": "failrecover",
+  "turns": 5,
+  "input_tokens": 3077,
+  "output_tokens": 549,
+  "ttft_s": 1.194,
+  "wall_s": 29.2,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,10 @@
+cmd: python3 __heldout__/test_ledger_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/smart__review-02-ledger_v/eval/__heldout__/test_ledger_heldout.py", line 28, in <module>
+    raise AssertionError("findings.json was not created at the repo root")
+AssertionError: findings.json was not created at the repo root

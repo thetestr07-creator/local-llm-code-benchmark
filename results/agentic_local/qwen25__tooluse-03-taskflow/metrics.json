@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "tooluse-03-taskflow",
+  "category": "tooluse",
+  "turns": 4,
+  "input_tokens": 3402,
+  "output_tokens": 301,
+  "ttft_s": 1.84,
+  "wall_s": 19.5,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

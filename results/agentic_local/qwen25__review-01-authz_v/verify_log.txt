@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_review_heldout.py
+exit: 1
+dur_s: 0.1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_local/qwen25__review-01-authz_v/eval/__heldout__/test_review_heldout.py", line 9, in <module>
+    assert data.get("buggy_function") == "can_edit", "identified %r, expected 'can_edit'" % data.get("buggy_function")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: identified 'can_view', expected 'can_edit'

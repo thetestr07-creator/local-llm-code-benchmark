@@ -1,0 +1,14 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "failrecover-02-brackets",
+  "category": "failrecover",
+  "turns": 2,
+  "input_tokens": 1054,
+  "output_tokens": 203,
+  "ttft_s": 3.898,
+  "wall_s": 5.2,
+  "tool_calls": {
+    "read_file": 1
+  },
+  "api_cost_usd": 0.0062
+}

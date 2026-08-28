@@ -1,0 +1,58 @@
+[
+  {
+    "turn": 0,
+    "assistant": "ACTION: list_files",
+    "action": {
+      "tool": "list_files",
+      "arg": "",
+      "content": null
+    },
+    "in": 902,
+    "out": 5
+  },
+  {
+    "turn": 0,
+    "observation": "FILES:\nREADME.md\ngwlib/__init__.py\ngwlib/clock.py\ngwlib/config.py\ngwlib/errors.py\ngwlib/gateway.py\ngwlib/handlers.py\ngwlib/metrics.py\ngwlib/request.py\ngwlib/router.py\ntests/test_smoke.py"
+  },
+  {
+    "turn": 1,
+    "assistant": "ACTION: write_file gwlib/ratelimit.py\n```python\nclass TokenBucket:\n    def __init__(self, capacity, refill_per_sec, clock):\n        if capacity <= 0:\n            raise ValueError(\"capacity must be a positive number\")\n        if refill_per_sec < 0:\n            raise ValueError(\"refill_per_sec must be a non-negative number\")\n        \n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill = clock.now()\n\n    def allow(self, cost=1):\n        if cost <= 0:\n            raise ValueError(\"cost must be a positive number\")\n        \n        now = self.clock.now()\n        elapsed = now - self.last_refill\n        self.tokens += elapsed * self.refill_per_sec\n        self.tokens = min(self.tokens, self.capacity)\n        self.last_refill = now\n\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\nclass RateLimiter:\n    def __init__(self, capacity, refill_per_sec, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.buckets = {}\n\n    def check(self, client, cost=1):\n        if client not in self.buckets:\n            self.buckets[client] = TokenBucket(self.capacity, self.refill_per_sec, self.clock)\n        return self.buckets[client].allow(cost)\n```\n\nACTION: write_file gwlib/gateway.py\n```python\nfrom gwlib.router import Router\nfrom gwlib.metrics import Metrics\nfrom gwlib.request import Request\nfrom gwlib.response import Response\nfrom gwlib.ratelimit import RateLimiter\n\nclass Gateway:\n    def __init__(self, router, metrics, clock, limiter=None):\n        self.router = router\n        self.metrics = metrics\n        self.clock = clock\n        self.limiter = limiter\n\n    def dispatch(self, request):\n        route = self.router.resolve(request)\n        self.metrics.increment(f\"route.{route.name}.calls\")\n\n        if self.limiter and not self.limiter.check(request.client):\n            self.metrics.increment(\"route.limited\")\n            return Response(429, \"rate limited\")\n\n        try:\n            handler = route.handler\n            result = handler(request)\n            self.metrics.increment(f\"route.{route.name}.ok\")\n            return result\n        except Exception as e:\n            self.metrics.increment(f\"route.{route.name}.error\")\n            return Response(500, str(e))\n        except KeyError:\n            self.metrics.increment(f\"route.{route.name}.unknown\")\n            return Response(404, \"unknown route\")\n```\n\nACTION: run_command python3 tests/test_smoke.py",
+    "action": {
+      "tool": "write_file",
+      "arg": "gwlib/ratelimit.py",
+      "content": "class TokenBucket:\n    def __init__(self, capacity, refill_per_sec, clock):\n        if capacity <= 0:\n            raise ValueError(\"capacity must be a positive number\")\n        if refill_per_sec < 0:\n            raise ValueError(\"refill_per_sec must be a non-negative number\")\n        \n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.tokens = capacity\n        self.last_refill = clock.now()\n\n    def allow(self, cost=1):\n        if cost <= 0:\n            raise ValueError(\"cost must be a positive number\")\n        \n        now = self.clock.now()\n        elapsed = now - self.last_refill\n        self.tokens += elapsed * self.refill_per_sec\n        self.tokens = min(self.tokens, self.capacity)\n        self.last_refill = now\n\n        if self.tokens >= cost:\n            self.tokens -= cost\n            return True\n        return False\n\nclass RateLimiter:\n    def __init__(self, capacity, refill_per_sec, clock):\n        self.capacity = capacity\n        self.refill_per_sec = refill_per_sec\n        self.clock = clock\n        self.buckets = {}\n\n    def check(self, client, cost=1):\n        if client not in self.buckets:\n            self.buckets[client] = TokenBucket(self.capacity, self.refill_per_sec, self.clock)\n        return self.buckets[client].allow(cost)\n"
+    },
+    "in": 983,
+    "out": 581
+  },
+  {
+    "turn": 1,
+    "observation": "WROTE gwlib/ratelimit.py (1333 bytes)"
+  },
+  {
+    "turn": 2,
+    "assistant": "ACTION: run_command python3 tests/test_smoke.py",
+    "action": {
+      "tool": "run_command",
+      "arg": "python3 tests/test_smoke.py",
+      "content": null
+    },
+    "in": 1594,
+    "out": 12
+  },
+  {
+    "turn": 2,
+    "observation": "exit=0\nSTDOUT:\nsmoke OK\n\nSTDERR:\n"
+  },
+  {
+    "turn": 3,
+    "assistant": "ACTION: finish",
+    "action": {
+      "tool": "finish",
+      "arg": "",
+      "content": null
+    },
+    "in": 1633,
+    "out": 4
+  }
+]

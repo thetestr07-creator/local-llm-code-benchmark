@@ -1,0 +1,13 @@
+cmd: python3 __heldout__/test_stats_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__testexec-01-stats_v/eval/__heldout__/test_stats_heldout.py", line 6, in <module>
+    assert mean([1, 2, 3, 4]) == 2.5
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/user/agentic/contest_cloud/openai__testexec-01-stats_v/eval/statskit/core.py", line 6, in mean
+    raise NotImplementedError
+NotImplementedError

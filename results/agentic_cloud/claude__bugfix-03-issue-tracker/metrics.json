@@ -1,0 +1,17 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "turns": 8,
+  "input_tokens": 50579,
+  "output_tokens": 7776,
+  "ttft_s": 18.371,
+  "wall_s": 105.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 4,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.2684
+}

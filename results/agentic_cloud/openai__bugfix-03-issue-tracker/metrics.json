@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "turns": 1,
+  "input_tokens": 568,
+  "output_tokens": 33,
+  "ttft_s": 1.132,
+  "wall_s": 1.1,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

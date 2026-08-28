@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "bugfix-01-invoice-cents",
+  "category": "bugfix",
+  "turns": 7,
+  "input_tokens": 5368,
+  "output_tokens": 175,
+  "ttft_s": 13.088,
+  "wall_s": 19.8,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 3,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

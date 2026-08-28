@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "failrecover-03-flatten",
+  "category": "failrecover",
+  "turns": 4,
+  "input_tokens": 1675,
+  "output_tokens": 133,
+  "ttft_s": 0.423,
+  "wall_s": 8.3,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,6 @@
+{
+  "task": "failrecover-03-flatten",
+  "category": "failrecover",
+  "passed": true,
+  "exit_code": 0
+}

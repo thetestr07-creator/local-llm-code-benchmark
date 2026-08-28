@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "failrecover-02-brackets",
+  "category": "failrecover",
+  "turns": 6,
+  "input_tokens": 3086,
+  "output_tokens": 183,
+  "ttft_s": 0.786,
+  "wall_s": 6.0,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

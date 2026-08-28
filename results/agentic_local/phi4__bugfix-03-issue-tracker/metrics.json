@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "turns": 5,
+  "input_tokens": 7037,
+  "output_tokens": 1082,
+  "ttft_s": 1.556,
+  "wall_s": 57.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

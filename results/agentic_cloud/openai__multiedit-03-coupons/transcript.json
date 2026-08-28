@@ -1,0 +1,24 @@
+[
+  {
+    "turn": 0,
+    "assistant": "ACTION: list_files<|message|><|start|>assistant<|channel|>final<|message|>ACTION: list_files",
+    "action": {
+      "tool": "list_files",
+      "arg": "<|message|><|start|>assistant<|channel|>final<|message|>ACTION: list_files",
+      "content": null
+    },
+    "in": 1302,
+    "out": 74
+  },
+  {
+    "turn": 0,
+    "observation": "FILES:\nREADME.md\nshop/__init__.py\nshop/api/__init__.py\nshop/api/app.py\nshop/api/dto.py\nshop/cli.py\nshop/errors.py\nshop/factory.py\nshop/model/__init__.py\nshop/model/cart.py\nshop/model/money.py\nshop/model/product.py\nshop/service/__init__.py\nshop/service/cart_service.py\nshop/service/catalog_service.py\nshop/store/__init__.py\nshop/store/base.py\nshop/store/cart_store.py\nshop/store/product_store.py\ntests/test_smoke.py"
+  },
+  {
+    "turn": 1,
+    "assistant": "",
+    "action": null,
+    "in": 1459,
+    "out": 26
+  }
+]

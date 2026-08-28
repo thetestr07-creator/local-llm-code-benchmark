@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "bugfix-01-invoice-cents",
+  "category": "bugfix",
+  "turns": 5,
+  "input_tokens": 3779,
+  "output_tokens": 623,
+  "ttft_s": 1.549,
+  "wall_s": 32.5,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "testexec-02-moneyfmt",
+  "category": "testexec",
+  "turns": 1,
+  "input_tokens": 888,
+  "output_tokens": 49,
+  "ttft_s": 1.796,
+  "wall_s": 1.8,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

@@ -1,0 +1,13 @@
+cmd: python3 __heldout__/test_money_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__testexec-02-moneyfmt_v/eval/__heldout__/test_money_heldout.py", line 9, in <module>
+    assert parse_amount("5") == 500
+           ^^^^^^^^^^^^^^^^^
+  File "/home/user/agentic/contest_cloud/openai__testexec-02-moneyfmt_v/eval/moneykit/core.py", line 13, in parse_amount
+    raise NotImplementedError
+NotImplementedError

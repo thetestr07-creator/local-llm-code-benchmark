@@ -1,0 +1,10 @@
+cmd: python3 __heldout__/test_discount_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__multiedit-01-discount_v/eval/__heldout__/test_discount_heldout.py", line 4, in <module>
+    from invoicelib.discount import apply_discount
+ModuleNotFoundError: No module named 'invoicelib.discount'

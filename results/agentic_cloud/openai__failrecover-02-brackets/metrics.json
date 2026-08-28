@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "failrecover-02-brackets",
+  "category": "failrecover",
+  "turns": 1,
+  "input_tokens": 366,
+  "output_tokens": 40,
+  "ttft_s": 1.536,
+  "wall_s": 1.5,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

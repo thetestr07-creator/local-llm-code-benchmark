@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "multiedit-02-ratelimit",
+  "category": "multiedit",
+  "turns": 4,
+  "input_tokens": 5112,
+  "output_tokens": 602,
+  "ttft_s": 3.177,
+  "wall_s": 34.7,
+  "tool_calls": {
+    "list_files": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

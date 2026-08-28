@@ -1,0 +1,15 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "failrecover-03-flatten",
+  "category": "failrecover",
+  "turns": 5,
+  "input_tokens": 3360,
+  "output_tokens": 194,
+  "ttft_s": 2.924,
+  "wall_s": 11.6,
+  "tool_calls": {
+    "read_file": 2,
+    "run_command": 2
+  },
+  "api_cost_usd": 0.013
+}

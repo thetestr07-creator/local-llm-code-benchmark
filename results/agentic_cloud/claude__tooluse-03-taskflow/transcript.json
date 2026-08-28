@@ -1,0 +1,58 @@
+[
+  {
+    "turn": 0,
+    "assistant": "ACTION: list_files\n\n```\n.\n```\n\nACTION: list_files",
+    "action": {
+      "tool": "list_files",
+      "arg": "",
+      "content": null
+    },
+    "in": 532,
+    "out": 20
+  },
+  {
+    "turn": 0,
+    "observation": "FILES:\nREADME.md\ntaskflow/__init__.py\ntaskflow/core/__init__.py\ntaskflow/core/clock.py\ntaskflow/core/engine.py\ntaskflow/core/executor.py\ntaskflow/core/job.py\ntaskflow/core/registry.py\ntaskflow/core/scheduler.py\ntaskflow/observe/__init__.py\ntaskflow/observe/events.py\ntaskflow/observe/middleware.py\ntaskflow/policy/__init__.py\ntaskflow/policy/backoff.py\ntaskflow/policy/decider.py\ntaskflow/policy/jitter.py\ntaskflow/policy/retry.py\ntaskflow/queue/__init__.py\ntaskflow/queue/base.py\ntaskflow/queue/memory.py\ntaskflow/store/__init__.py\ntaskflow/store/memory.py\ntests/test_smoke.py"
+  },
+  {
+    "turn": 1,
+    "assistant": "ACTION: read_file taskflow/policy/backoff.py\n\n```\n```\n\nACTION: read_file taskflow/policy/backoff.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "taskflow/policy/backoff.py",
+      "content": null
+    },
+    "in": 763,
+    "out": 36
+  },
+  {
+    "turn": 1,
+    "observation": "\"\"\"Backoff schedule computation.\n\n`compute_delay` returns how many seconds to wait before a given (0-based)\nretry attempt, using exponential growth:\n\n    delay = base_delay * (factor ** attempt)\n\nThe growth is bounded above by `max_delay` so that, no matter how many times a\njob has failed, a single wait never exceeds the configured cap. `base_delay` is\nalso treated as a floor for the very first retry.\n\"\"\"\n\n\ndef compute_delay(attempt, base_delay=1.0, factor=2.0, max_delay=60.0):\n    \"\"\"Seconds to wait before retry number `attempt` (attempt 0 == first retry).\n\n    The raw exponential value is capped at `max_delay`.\n    \"\"\"\n    if attempt < 0:\n        attempt = 0\n    raw = base_delay * (factor ** attempt)\n    if raw < base_delay:\n        raw = base_delay\n    return raw\n\n\ndef schedule(max_attempts, base_delay=1.0, factor=2.0, max_delay=60.0):\n    \"\"\"Materialize the full per-attempt delay schedule (handy for previews).\"\"\"\n    return [compute_delay(a, base_delay, factor, max_delay) for a in range(max_attempts)]\n"
+  },
+  {
+    "turn": 2,
+    "assistant": "The bug is clear: `compute_delay` never applies the `max_delay` cap. The `min(raw, max_delay)` call is missing.\n\nACTION: write_file taskflow/policy/backoff.py\n\n```python\n\"\"\"Backoff schedule computation.\n\n`compute_delay` returns how many seconds to wait before a given (0-based)\nretry attempt, using exponential growth:\n\n    delay = base_delay * (factor ** attempt)\n\nThe growth is bounded above by `max_delay` so that, no matter how many times a\njob has failed, a single wait never exceeds the configured cap. `base_delay` is\nalso treated as a floor for the very first retry.\n\"\"\"\n\n\ndef compute_delay(attempt, base_delay=1.0, factor=2.0, max_delay=60.0):\n    \"\"\"Seconds to wait before retry number `attempt` (attempt 0 == first retry).\n\n    The raw exponential value is capped at `max_delay`.\n    \"\"\"\n    if attempt < 0:\n        attempt = 0\n    raw = base_delay * (factor ** attempt)\n    if raw < base_delay:\n        raw = base_delay\n    return min(raw, max_delay)\n\n\ndef schedule(max_attempts, base_delay=1.0, factor=2.0, max_delay=60.0):\n    \"\"\"Materialize the full per-attempt delay schedule (handy for previews).\"\"\"\n    return [compute_delay(a, base_delay, factor, max_delay) for a in range(max_attempts)]\n```\n\nACTION: finish",
+    "action": {
+      "tool": "write_file",
+      "arg": "taskflow/policy/backoff.py",
+      "content": "\"\"\"Backoff schedule computation.\n\n`compute_delay` returns how many seconds to wait before a given (0-based)\nretry attempt, using exponential growth:\n\n    delay = base_delay * (factor ** attempt)\n\nThe growth is bounded above by `max_delay` so that, no matter how many times a\njob has failed, a single wait never exceeds the configured cap. `base_delay` is\nalso treated as a floor for the very first retry.\n\"\"\"\n\n\ndef compute_delay(attempt, base_delay=1.0, factor=2.0, max_delay=60.0):\n    \"\"\"Seconds to wait before retry number `attempt` (attempt 0 == first retry).\n\n    The raw exponential value is capped at `max_delay`.\n    \"\"\"\n    if attempt < 0:\n        attempt = 0\n    raw = base_delay * (factor ** attempt)\n    if raw < base_delay:\n        raw = base_delay\n    return min(raw, max_delay)\n\n\ndef schedule(max_attempts, base_delay=1.0, factor=2.0, max_delay=60.0):\n    \"\"\"Materialize the full per-attempt delay schedule (handy for previews).\"\"\"\n    return [compute_delay(a, base_delay, factor, max_delay) for a in range(max_attempts)]\n"
+    },
+    "in": 1109,
+    "out": 373
+  },
+  {
+    "turn": 2,
+    "observation": "WROTE taskflow/policy/backoff.py (1037 bytes)"
+  },
+  {
+    "turn": 3,
+    "assistant": "ACTION: finish",
+    "action": {
+      "tool": "finish",
+      "arg": "",
+      "content": null
+    },
+    "in": 1506,
+    "out": 6
+  }
+]

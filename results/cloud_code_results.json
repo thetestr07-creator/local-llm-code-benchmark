@@ -1,0 +1,53 @@
+{
+  "results": [
+    {
+      "model": "Claude Sonnet 4.6",
+      "suite": "HumanEval",
+      "pass_at_1": 97.0,
+      "passed": 159,
+      "total": 164,
+      "gen_errors": 0,
+      "input_tokens": 29373,
+      "output_tokens": 22124,
+      "api_cost_usd": 0.42,
+      "wall_s": 484
+    },
+    {
+      "model": "Claude Sonnet 4.6",
+      "suite": "MBPP",
+      "pass_at_1": 93.4,
+      "passed": 399,
+      "total": 427,
+      "gen_errors": 0,
+      "input_tokens": 65588,
+      "output_tokens": 29743,
+      "api_cost_usd": 0.6429,
+      "wall_s": 970
+    },
+    {
+      "model": "GPT-oss-120b (DO)",
+      "suite": "HumanEval",
+      "pass_at_1": 87.2,
+      "passed": 143,
+      "total": 164,
+      "gen_errors": 3,
+      "input_tokens": 35992,
+      "output_tokens": 76081,
+      "api_cost_usd": 0.0569,
+      "wall_s": 2339
+    },
+    {
+      "model": "GPT-oss-120b (DO)",
+      "suite": "MBPP",
+      "pass_at_1": 92.7,
+      "passed": 396,
+      "total": 427,
+      "gen_errors": 18,
+      "input_tokens": 85434,
+      "output_tokens": 154972,
+      "api_cost_usd": 0.117,
+      "wall_s": 4856
+    }
+  ],
+  "spent_usd": 1.237
+}

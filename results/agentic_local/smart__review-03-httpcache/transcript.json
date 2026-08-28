@@ -1,0 +1,152 @@
+[
+  {
+    "turn": 0,
+    "assistant": "ACTION: list_files",
+    "action": {
+      "tool": "list_files",
+      "arg": "",
+      "content": null
+    },
+    "in": 640,
+    "out": 5
+  },
+  {
+    "turn": 0,
+    "observation": "FILES:\nREADME.md\ndocs/SPEC.md\nhttpcache/__init__.py\nhttpcache/cachekey.py\nhttpcache/conditional.py\nhttpcache/content.py\nhttpcache/datefmt.py\nhttpcache/etags.py\nhttpcache/freshness.py\nhttpcache/headers.py\nhttpcache/ranges.py\nhttpcache/store.py\nhttpcache/vary.py\ntests/test_httpcache.py"
+  },
+  {
+    "turn": 1,
+    "assistant": "ACTION: read_file docs/SPEC.md",
+    "action": {
+      "tool": "read_file",
+      "arg": "docs/SPEC.md",
+      "content": null
+    },
+    "in": 741,
+    "out": 9
+  },
+  {
+    "turn": 1,
+    "observation": "# Byte-range rules (subset of RFC 7233)\n\nA representation has a length `L` (the number of bytes in the body). Byte\npositions are zero-based, so the last valid byte offset is `L - 1`.\n\nA single range request `bytes=first-last` is interpreted as follows:\n\n- `first-last`  : bytes `first` through `last` inclusive.\n- `first-`      : bytes `first` through the end (`L - 1`).\n- `-suffix`     : the final `suffix` bytes, i.e. `L - suffix` through `L - 1`.\n\n## Satisfiability\n\nA range is **satisfiable** only if `first` refers to a byte that actually\nexists in the representation. Because the last valid offset is `L - 1`, a range\nis satisfiable iff:\n\n    first <= last  AND  first < L\n\nIf `last` is greater than `L - 1`, it is clamped down to `L - 1` (the range is\nstill satisfiable as long as `first < L`).\n\nA request for `bytes=L-...` (a `first` equal to the length, i.e. one past the\nfinal byte) is **not satisfiable** and must yield HTTP 416, never an empty or\npartial body.\n"
+  },
+  {
+    "turn": 2,
+    "assistant": "ACTION: read_file httpcache/ranges.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/ranges.py",
+      "content": null
+    },
+    "in": 1051,
+    "out": 10
+  },
+  {
+    "turn": 2,
+    "observation": "\"\"\"Parse a `Range: bytes=...` header into structured byte ranges.\n\nThis module only PARSES the syntax; it does not know the representation length,\nso it cannot decide satisfiability. Resolving/clamping against the actual body\nlength happens in `content.py`.\n\"\"\"\n\n\nclass ByteRange:\n    \"\"\"A single requested range.\n\n    Exactly one of two forms:\n      - explicit:   first is an int >= 0; last is an int >= first, or None for\n                    an open-ended `first-` range.\n      - suffix:     first is None; suffix_length is a positive int for a\n                    `-N` (last N bytes) range.\n    \"\"\"\n\n    def __init__(self, first=None, last=None, suffix_length=None):\n        self.first = first\n        self.last = last\n        self.suffix_length = suffix_length\n\n    def is_suffix(self):\n        return self.first is None and self.suffix_length is not None\n\n    def __repr__(self):\n        if self.is_suffix():\n            return \"ByteRange(suffix=%d)\" % self.suffix_length\n        return \"ByteRange(first=%r, last=%r)\" % (self.first, self.last)\n\n\ndef parse_range_header(value):\n    \"\"\"Parse a `Range` header value into a list of ByteRange, or None.\n\n    Returns None when the header is absent, does not use the `bytes` unit, or is\n    syntactically malformed (the caller then ignores it and serves 200). An\n    empty list is never returned: a syntactically valid header has >= 1 range.\n    \"\"\"\n    if not value:\n        return None\n    value = value.strip()\n    if \"=\" not in value:\n        return None\n    unit, _, spec = value.partition(\"=\")\n    if unit.strip().lower() != \"bytes\":\n        return None\n\n    ranges = []\n    for part in spec.split(\",\"):\n        part = part.strip()\n        if not part or \"-\" not in part:\n            return None\n        start_txt, _, end_txt = part.partition(\"-\")\n        start_txt, end_txt = start_txt.strip(), end_txt.strip()\n\n        if start_txt == \"\":\n            # suffix range: -N\n            if not end_txt.isdigit():\n                return None\n            n = int(end_txt)\n            if n == 0:\n                return None\n            ranges.append(ByteRange(suffix_length=n))\n            continue\n\n        if not start_txt.isdigit():\n            return None\n        first = int(start_txt)\n\n        if end_txt == \"\":\n            ranges.append(ByteRange(first=first, last=None))\n        else:\n            if not end_txt.isdigit():\n                return None\n            last = int(end_txt)\n            if last < first:\n                return None\n            ranges.append(ByteRange(first=first, last=last))\n\n    return ranges or None\n"
+  },
+  {
+    "turn": 3,
+    "assistant": "ACTION: read_file httpcache/content.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/content.py",
+      "content": null
+    },
+    "in": 1660,
+    "out": 9
+  },
+  {
+    "turn": 3,
+    "observation": "\"\"\"Apply a parsed byte range to a representation body.\n\nThe parser in `ranges.py` produces ByteRange objects but knows nothing about the\nactual body length. This module resolves each range against the real length,\ndecides satisfiability, clamps the end, and slices out the bytes.\n\nSee docs/SPEC.md: for a body of length L the last valid offset is L-1, so a\nrange is satisfiable iff `first <= last` and `first < L`. A `first` equal to L\n(one past the end) is NOT satisfiable and must raise RangeNotSatisfiable.\n\"\"\"\n\n\nclass RangeNotSatisfiable(Exception):\n    \"\"\"Raised when a requested range cannot be served (HTTP 416).\"\"\"\n\n\ndef _resolve(byte_range, length):\n    \"\"\"Turn a ByteRange into concrete (first, last) offsets given `length`.\n\n    `last` is inclusive. Returns a (first, last) tuple. Raises\n    RangeNotSatisfiable when the range does not overlap the body.\n    \"\"\"\n    if byte_range.is_suffix():\n        n = byte_range.suffix_length\n        if n >= length:\n            # asking for more (or exactly as many) suffix bytes than exist:\n            # serve the whole body.\n            return 0, length - 1\n        return length - n, length - 1\n\n    first = byte_range.first\n    last = byte_range.last\n\n    # Satisfiability: the start must point at a byte that actually exists.\n    # The last valid offset is length-1, so `first` must be strictly below\n    # `length`; a `first` equal to `length` is one past the end (see SPEC).\n    if first > length:\n        raise RangeNotSatisfiable(\"range %r not satisfiable for length %d\" % (byte_range, length))\n\n    # Clamp an open-ended or over-long end down to the final byte.\n    if last is None or last > length - 1:\n        last = length - 1\n\n    return first, last\n\n\ndef apply_range(body, byte_range):\n    \"\"\"Return the bytes of `body` selected by `byte_range`.\n\n    `body` is a bytes-like object. Raises RangeNotSatisfiable (HTTP 416) when\n    the range does not overlap the body.\n    \"\"\"\n    length = len(body)\n    if length == 0:\n        raise RangeNotSatisfiable(\"empty representation\")\n    first, last = _resolve(byte_range, length)\n    return body[first:last + 1]\n"
+  },
+  {
+    "turn": 4,
+    "assistant": "ACTION: read_file httpcache/headers.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/headers.py",
+      "content": null
+    },
+    "in": 2214,
+    "out": 10
+  },
+  {
+    "turn": 4,
+    "observation": "\"\"\"Case-insensitive header container and comma-list parsing.\"\"\"\n\n\nclass Headers:\n    \"\"\"A minimal case-insensitive multi-map for HTTP headers.\"\"\"\n\n    def __init__(self, items=None):\n        self._store = {}  # lower_name -> (original_name, [values])\n        if items:\n            for name, value in (items.items() if hasattr(items, \"items\") else items):\n                self.add(name, value)\n\n    def add(self, name, value):\n        key = name.lower()\n        if key in self._store:\n            self._store[key][1].append(value)\n        else:\n            self._store[key] = (name, [value])\n\n    def get(self, name, default=None):\n        entry = self._store.get(name.lower())\n        if not entry:\n            return default\n        return entry[1][0]\n\n    def get_all(self, name):\n        entry = self._store.get(name.lower())\n        return list(entry[1]) if entry else []\n\n    def __contains__(self, name):\n        return name.lower() in self._store\n\n    def __repr__(self):\n        return \"Headers(%r)\" % {v[0]: v[1] for v in self._store.values()}\n\n\ndef parse_list(value):\n    \"\"\"Split a comma-separated header value into trimmed, non-empty tokens.\"\"\"\n    if value is None:\n        return []\n    return [tok.strip() for tok in value.split(\",\") if tok.strip()]\n"
+  },
+  {
+    "turn": 5,
+    "assistant": "ACTION: read_file httpcache/conditional.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/conditional.py",
+      "content": null
+    },
+    "in": 2539,
+    "out": 10
+  },
+  {
+    "turn": 5,
+    "observation": "\"\"\"Evaluate conditional requests into a status decision.\n\nReturns one of: 200 (send full response), 304 (not modified), 412 (precondition\nfailed). Precedence follows RFC 7232: If-Match is evaluated before\nIf-None-Match.\n\"\"\"\nfrom .etags import if_none_match_passes, if_match_passes\nfrom .datefmt import parse_http_date\n\n\ndef evaluate_conditional(request_headers, current_etag, last_modified_ts, method=\"GET\"):\n    \"\"\"Decide the response status for a conditional request.\n\n    - If `If-Match` is present and fails -> 412.\n    - Else if `If-None-Match` is present and matches -> 304 (GET/HEAD) / 412.\n    - Else if `If-Modified-Since` is present and the resource is not newer -> 304.\n    - Otherwise -> 200.\n    \"\"\"\n    if \"If-Match\" in request_headers:\n        if not if_match_passes(request_headers.get(\"If-Match\"), current_etag):\n            return 412\n\n    if \"If-None-Match\" in request_headers:\n        if not if_none_match_passes(request_headers.get(\"If-None-Match\"), current_etag):\n            return 304 if method in (\"GET\", \"HEAD\") else 412\n        return 200\n\n    if \"If-Modified-Since\" in request_headers and method in (\"GET\", \"HEAD\"):\n        since = parse_http_date(request_headers.get(\"If-Modified-Since\"))\n        if since is not None and last_modified_ts is not None:\n            if last_modified_ts <= since:\n                return 304\n\n    return 200\n"
+  },
+  {
+    "turn": 6,
+    "assistant": "ACTION: read_file httpcache/etags.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/etags.py",
+      "content": null
+    },
+    "in": 2942,
+    "out": 11
+  },
+  {
+    "turn": 6,
+    "observation": "\"\"\"ETag parsing and conditional-match logic (If-None-Match / If-Match).\"\"\"\nfrom .headers import parse_list\n\n\ndef parse_etag(raw):\n    \"\"\"Parse one ETag token into (is_weak, opaque_value).\n\n    A weak tag is prefixed with W/. The opaque value keeps its surrounding\n    double quotes stripped.\n    \"\"\"\n    raw = raw.strip()\n    weak = False\n    if raw.startswith(\"W/\"):\n        weak = True\n        raw = raw[2:].strip()\n    if len(raw) >= 2 and raw[0] == '\"' and raw[-1] == '\"':\n        raw = raw[1:-1]\n    return weak, raw\n\n\ndef etag_matches(a, b, strong=True):\n    \"\"\"Compare two raw ETag tokens.\n\n    Strong comparison: both must be strong and their opaque values equal.\n    Weak comparison: opaque values equal regardless of weakness.\n    \"\"\"\n    wa, va = parse_etag(a)\n    wb, vb = parse_etag(b)\n    if strong and (wa or wb):\n        return False\n    return va == vb\n\n\ndef if_none_match_passes(header_value, current_etag):\n    \"\"\"Return True if the request should proceed (i.e. NOT a 304).\n\n    `If-None-Match: *` matches any existing representation, so it fails (304)\n    when a current ETag exists. Otherwise the request is a 304 iff the current\n    ETag weakly matches one of the listed tags.\n    \"\"\"\n    tokens = parse_list(header_value)\n    if not tokens:\n        return True\n    if \"*\" in tokens:\n        return current_etag is None\n    for tok in tokens:\n        if etag_matches(tok, current_etag, strong=False):\n            return False\n    return True\n\n\ndef if_match_passes(header_value, current_etag):\n    \"\"\"Return True if the precondition holds (else the caller should send 412).\n\n    `If-Match: *` holds iff a representation exists. Otherwise it holds iff the\n    current ETag strongly matches one of the listed tags.\n    \"\"\"\n    tokens = parse_list(header_value)\n    if not tokens:\n        return True\n    if \"*\" in tokens:\n        return current_etag is not None\n    for tok in tokens:\n        if etag_matches(tok, current_etag, strong=True):\n            return True\n    return False\n"
+  },
+  {
+    "turn": 7,
+    "assistant": "ACTION: read_file httpcache/freshness.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/freshness.py",
+      "content": null
+    },
+    "in": 3470,
+    "out": 11
+  },
+  {
+    "turn": 7,
+    "observation": "\"\"\"Response age and freshness-lifetime computation.\"\"\"\nfrom .datefmt import parse_http_date\n\n\ndef response_age(headers, now, response_time):\n    \"\"\"Estimate a cached response's current age in seconds.\n\n    Uses the explicit `Age` header if present, plus the time elapsed since the\n    response was received (`now - response_time`). Never negative.\n    \"\"\"\n    age = 0\n    age_header = headers.get(\"Age\")\n    if age_header is not None:\n        try:\n            age = max(0, int(age_header.strip()))\n        except ValueError:\n            age = 0\n    resident = now - response_time\n    if resident < 0:\n        resident = 0\n    return age + resident\n\n\ndef freshness_lifetime(headers, date_time=None):\n    \"\"\"Compute how long (seconds) the response stays fresh.\n\n    Prefers `Cache-Control: max-age`; falls back to `Expires - Date`. Returns 0\n    if neither is available (i.e. treat as stale and revalidate).\n    \"\"\"\n    cc = headers.get(\"Cache-Control\")\n    if cc:\n        for token in cc.split(\",\"):\n            token = token.strip().lower()\n            if token.startswith(\"max-age=\"):\n                try:\n                    return max(0, int(token[len(\"max-age=\"):]))\n                except ValueError:\n                    return 0\n    expires = parse_http_date(headers.get(\"Expires\"))\n    if expires is not None:\n        base = date_time if date_time is not None else parse_http_date(headers.get(\"Date\"))\n        if base is not None:\n            return max(0, expires - base)\n    return 0\n\n\ndef is_fresh(headers, now, response_time, date_time=None):\n    \"\"\"A response is fresh iff its age is strictly less than its lifetime.\"\"\"\n    return response_age(headers, now, response_time) < freshness_lifetime(headers, date_time)\n"
+  },
+  {
+    "turn": 8,
+    "assistant": "ACTION: read_file httpcache/datefmt.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/datefmt.py",
+      "content": null
+    },
+    "in": 3881,
+    "out": 10
+  },
+  {
+    "turn": 8,
+    "observation": "\"\"\"RFC 7231 IMF-fixdate handling (the one preferred HTTP date format).\"\"\"\nimport calendar\nimport time\n\n_IMF = \"%a, %d %b %Y %H:%M:%S GMT\"\n\n\ndef parse_http_date(text):\n    \"\"\"Parse an IMF-fixdate string into a POSIX timestamp (UTC), or None.\"\"\"\n    if not text:\n        return None\n    try:\n        tm = time.strptime(text.strip(), _IMF)\n    except ValueError:\n        return None\n    return calendar.timegm(tm)\n\n\ndef format_http_date(timestamp):\n    \"\"\"Format a POSIX timestamp as an IMF-fixdate string.\"\"\"\n    return time.strftime(_IMF, time.gmtime(timestamp))\n"
+  },
+  {
+    "turn": 9,
+    "assistant": "ACTION: read_file httpcache/vary.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "httpcache/vary.py",
+      "content": null
+    },
+    "in": 4046,
+    "out": 10
+  },
+  {
+    "turn": 9,
+    "observation": "\"\"\"Vary-aware cache keying.\"\"\"\nfrom .headers import parse_list\n\n\ndef vary_fields(response_headers):\n    \"\"\"Return the list of request-header names named by `Vary` (lowercased).\n\n    A `Vary: *` means the response is uncacheable by a shared key; we surface it\n    as the single token '*' so the caller can refuse to cache.\n    \"\"\"\n    names = []\n    for value in response_headers.get_all(\"Vary\"):\n        for tok in parse_list(value):\n            names.append(tok.lower())\n    return names\n\n\ndef cache_key_with_vary(base_key, request_headers, response_headers):\n    \"\"\"Extend `base_key` with the request values of each Vary'd header.\n\n    If Vary is '*' the representation is not shareable; we return None to signal\n    the caller must not store it under a shared key.\n    \"\"\"\n    fields = vary_fields(response_headers)\n    if \"*\" in fields:\n        return None\n    parts = [base_key]\n    for name in sorted(set(fields)):\n        parts.append(\"%s=%s\" % (name, request_headers.get(name, \"\")))\n    return \"|\".join(parts)\n"
+  }
+]

@@ -1,0 +1,11 @@
+cmd: python3 __heldout__/test_backoff_heldout.py
+exit: 1
+dur_s: 0.2
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "/home/user/agentic/contest_cloud/openai__tooluse-03-taskflow_v/eval/__heldout__/test_backoff_heldout.py", line 11, in <module>
+    assert delays == [1, 2, 4, 8, 16, 30, 30, 30, 30], "backoff not capped: %r" % (delays,)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: backoff not capped: [1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0]

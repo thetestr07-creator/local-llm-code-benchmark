@@ -1,0 +1,6 @@
+{
+  "task": "bugfix-03-issue-tracker",
+  "category": "bugfix",
+  "passed": false,
+  "exit_code": 1
+}

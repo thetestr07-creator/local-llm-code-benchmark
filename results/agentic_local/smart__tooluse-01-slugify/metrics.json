@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "tooluse-01-slugify",
+  "category": "tooluse",
+  "turns": 15,
+  "input_tokens": 21579,
+  "output_tokens": 701,
+  "ttft_s": 1.174,
+  "wall_s": 38.7,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "write_file": 3,
+    "run_command": 9
+  },
+  "api_cost_usd": 0.0
+}

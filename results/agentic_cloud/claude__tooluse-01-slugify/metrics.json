@@ -1,0 +1,17 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "tooluse-01-slugify",
+  "category": "tooluse",
+  "turns": 9,
+  "input_tokens": 23647,
+  "output_tokens": 3551,
+  "ttft_s": 7.141,
+  "wall_s": 54.2,
+  "tool_calls": {
+    "list_files": 2,
+    "read_file": 2,
+    "write_file": 1,
+    "run_command": 3
+  },
+  "api_cost_usd": 0.1242
+}

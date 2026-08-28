@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "bugfix-01-invoice-cents",
+  "category": "bugfix",
+  "turns": 4,
+  "input_tokens": 2188,
+  "output_tokens": 155,
+  "ttft_s": 1.291,
+  "wall_s": 12.9,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

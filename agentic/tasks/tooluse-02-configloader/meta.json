@@ -1,0 +1,8 @@
+{
+  "id": "tooluse-02-configloader",
+  "category": "tooluse",
+  "summary": "Layered config loader drops sibling keys on partial nested overrides; bug is in util/merge.deep_merge, reached via resolver.merge_all. Agent must trace source ordering -> merge_all -> deep_merge to find it.",
+  "heldout_cmd": "python3 __heldout__/test_merge_heldout.py",
+  "max_turns": 15,
+  "max_tokens_per_turn": 1500
+}

@@ -1,0 +1,8 @@
+{
+  "id": "bugfix-01-invoice-cents",
+  "category": "bugfix",
+  "summary": "Float->cents truncation bug in a small invoicing library (multi-file).",
+  "heldout_cmd": "python3 __heldout__/test_money_heldout.py",
+  "max_turns": 12,
+  "max_tokens_per_turn": 1500
+}

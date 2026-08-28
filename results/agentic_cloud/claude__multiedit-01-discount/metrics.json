@@ -1,0 +1,17 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "multiedit-01-discount",
+  "category": "multiedit",
+  "turns": 12,
+  "input_tokens": 17008,
+  "output_tokens": 1659,
+  "ttft_s": 1.659,
+  "wall_s": 39.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 3,
+    "write_file": 3,
+    "run_command": 4
+  },
+  "api_cost_usd": 0.0759
+}

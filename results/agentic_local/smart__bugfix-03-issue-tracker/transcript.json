@@ -1,0 +1,118 @@
+[
+  {
+    "turn": 0,
+    "assistant": "ACTION: list_files",
+    "action": {
+      "tool": "list_files",
+      "arg": "",
+      "content": null
+    },
+    "in": 511,
+    "out": 5
+  },
+  {
+    "turn": 0,
+    "observation": "FILES:\nREADME.md\ntests/test_domain.py\ntests/test_interface.py\ntests/test_smoke.py\ntracker/__init__.py\ntracker/domain/__init__.py\ntracker/domain/enums.py\ntracker/domain/issue.py\ntracker/domain/templates.py\ntracker/interface/__init__.py\ntracker/interface/cli.py\ntracker/interface/parser.py\ntracker/interface/router.py\ntracker/service/__init__.py\ntracker/service/events.py\ntracker/service/reporting.py\ntracker/service/store.py\ntracker/service/tracker_service.py\ntracker/service/validators.py"
+  },
+  {
+    "turn": 1,
+    "assistant": "ACTION: read_file tracker/domain/issue.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "tracker/domain/issue.py",
+      "content": null
+    },
+    "in": 638,
+    "out": 10
+  },
+  {
+    "turn": 1,
+    "observation": "\"\"\"The Issue aggregate.\"\"\"\nfrom .enums import Status, Priority, VALID_STATUSES, VALID_PRIORITIES, DONE_STATUSES\n\n\nclass Issue:\n    \"\"\"A single tracked issue.\n\n    `labels` is a per-issue list of string tags that the issue then owns and\n    mutates in place. Whatever list is passed in becomes this issue's list, so\n    callers are responsible for handing each issue its own list. Mutating one\n    issue's labels must never affect another issue.\n    \"\"\"\n\n    def __init__(self, issue_id, title, priority=Priority.MEDIUM, labels=None):\n        if priority not in VALID_PRIORITIES:\n            raise ValueError(\"bad priority: %r\" % (priority,))\n        self.id = issue_id\n        self.title = title\n        self.priority = priority\n        self.status = Status.OPEN\n        # The issue adopts the caller-provided list as its own mutable state.\n        self.labels = labels if labels is not None else []\n        self.comments = []\n\n    def add_label(self, label):\n        \"\"\"Attach a label if not already present. Mutates this issue's list.\"\"\"\n        if label not in self.labels:\n            self.labels.append(label)\n        return self.labels\n\n    def remove_label(self, label):\n        if label in self.labels:\n            self.labels.remove(label)\n        return self.labels\n\n    def add_comment(self, author, text):\n        self.comments.append({\"author\": author, \"text\": text})\n        return len(self.comments)\n\n    def set_status(self, status):\n        if status not in VALID_STATUSES:\n            raise ValueError(\"bad status: %r\" % (status,))\n        self.status = status\n\n    def is_done(self):\n        return self.status in DONE_STATUSES\n\n    def to_dict(self):\n        return {\n            \"id\": self.id,\n            \"title\": self.title,\n            \"priority\": self.priority,\n            \"status\": self.status,\n            \"labels\": list(self.labels),\n            \"comments\": list(self.comments),\n        }\n\n    def __repr__(self):\n        return \"<Issue %s %r [%s/%s] labels=%s>\" % (\n            self.id, self.title, self.priority, self.status, self.labels)\n"
+  },
+  {
+    "turn": 2,
+    "assistant": "ACTION: read_file tracker/domain/templates.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "tracker/domain/templates.py",
+      "content": null
+    },
+    "in": 1117,
+    "out": 9
+  },
+  {
+    "turn": 2,
+    "observation": "\"\"\"Issue templates.\n\nA template is a reusable preset (priority + a starter set of labels) that new\nissues are stamped from. For example the \"bug\" template starts every new issue\nwith the labels [\"bug\", \"needs-triage\"].\n\nBecause the same template is used to create many issues, a template must hand\neach new issue a *fresh* copy of its starter labels. If two issues ended up\nsharing one label list, adding a label to one would leak into the other.\n\"\"\"\nfrom .enums import Priority\n\n\nclass IssueTemplate:\n    def __init__(self, name, priority, default_labels):\n        self.name = name\n        self.priority = priority\n        # canonical starter labels for this template (never handed out directly)\n        self._default_labels = list(default_labels)\n\n    def starter_labels(self):\n        \"\"\"Return the starter labels to seed a new issue with.\n\n        Each caller gets an independent list it is free to mutate.\n        \"\"\"\n        return self._default_labels\n\n    def defaults(self):\n        \"\"\"Return (priority, starter_labels) for a new issue from this template.\"\"\"\n        return self.priority, self.starter_labels()\n\n\nBUILTIN_TEMPLATES = {\n    \"bug\": IssueTemplate(\"bug\", Priority.HIGH, [\"bug\", \"needs-triage\"]),\n    \"feature\": IssueTemplate(\"feature\", Priority.MEDIUM, [\"feature\"]),\n    \"chore\": IssueTemplate(\"chore\", Priority.LOW, [\"chore\"]),\n    \"incident\": IssueTemplate(\"incident\", Priority.CRITICAL, [\"incident\", \"needs-triage\"]),\n}\n\n\ndef get_template(name):\n    if name not in BUILTIN_TEMPLATES:\n        raise KeyError(\"unknown template: %r\" % (name,))\n    return BUILTIN_TEMPLATES[name]\n"
+  },
+  {
+    "turn": 3,
+    "assistant": "ACTION: read_file tracker/service/tracker_service.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "tracker/service/tracker_service.py",
+      "content": null
+    },
+    "in": 1500,
+    "out": 11
+  },
+  {
+    "turn": 3,
+    "observation": "\"\"\"The TrackerService facade: creates and mutates issues via the store, records\nevents, and enforces validation. This is the seam the CLI/router talks to.\"\"\"\nfrom ..domain.issue import Issue\nfrom ..domain.templates import get_template\nfrom .store import InMemoryStore\nfrom .events import EventLog\nfrom . import validators\n\n\nclass TrackerError(Exception):\n    pass\n\n\nclass TrackerService:\n    def __init__(self, store=None, events=None):\n        self.store = store or InMemoryStore()\n        self.events = events or EventLog()\n\n    # ---- creation ---------------------------------------------------------\n    def create_issue(self, title, priority=None, labels=None, template=None):\n        \"\"\"Create and store a new issue.\n\n        If `template` is given, the new issue is seeded from that template's\n        priority and starter labels. Any explicit `labels` are added on top.\n        \"\"\"\n        title = validators.validate_title(title)\n\n        if template is not None:\n            tmpl = get_template(template)\n            tmpl_priority, seed_labels = tmpl.defaults()\n            eff_priority = priority or tmpl_priority\n        else:\n            eff_priority = priority or \"medium\"\n            seed_labels = list(labels) if labels else []\n\n        eff_priority = validators.validate_priority(eff_priority)\n\n        issue = Issue(self.store.next_id(), title, eff_priority, seed_labels)\n\n        # explicit labels (from the caller) are layered on top of the template\n        if template is not None and labels:\n            for lab in labels:\n                issue.add_label(validators.normalize_label(lab))\n\n        self.store.put(issue)\n        self.events.record(\"issue_created\", id=issue.id, template=template)\n        return issue\n\n    # ---- lookups ----------------------------------------------------------\n    def get_issue(self, issue_id):\n        issue = self.store.get(issue_id)\n        if issue is None:\n            raise TrackerError(\"no such issue: %s\" % issue_id)\n        return issue\n\n    def all_issues(self):\n        return self.store.all()\n\n    # ---- mutations --------------------------------------------------------\n    def add_label(self, issue_id, label):\n        issue = self.get_issue(issue_id)\n        label = validators.normalize_label(label)\n        issue.add_label(label)\n        self.events.record(\"label_added\", id=issue_id, label=label)\n        return issue\n\n    def set_status(self, issue_id, status):\n        issue = self.get_issue(issue_id)\n        status = validators.validate_status(status)\n        issue.set_status(status)\n        self.events.record(\"status_changed\", id=issue_id, status=status)\n        return issue\n\n    def comment(self, issue_id, author, text):\n        issue = self.get_issue(issue_id)\n        n = issue.add_comment(author, text)\n        self.events.record(\"commented\", id=issue_id, author=author)\n        return n\n"
+  },
+  {
+    "turn": 4,
+    "assistant": "ACTION: read_file tracker/domain/templates.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "tracker/domain/templates.py",
+      "content": null
+    },
+    "in": 2097,
+    "out": 9
+  },
+  {
+    "turn": 4,
+    "observation": "\"\"\"Issue templates.\n\nA template is a reusable preset (priority + a starter set of labels) that new\nissues are stamped from. For example the \"bug\" template starts every new issue\nwith the labels [\"bug\", \"needs-triage\"].\n\nBecause the same template is used to create many issues, a template must hand\neach new issue a *fresh* copy of its starter labels. If two issues ended up\nsharing one label list, adding a label to one would leak into the other.\n\"\"\"\nfrom .enums import Priority\n\n\nclass IssueTemplate:\n    def __init__(self, name, priority, default_labels):\n        self.name = name\n        self.priority = priority\n        # canonical starter labels for this template (never handed out directly)\n        self._default_labels = list(default_labels)\n\n    def starter_labels(self):\n        \"\"\"Return the starter labels to seed a new issue with.\n\n        Each caller gets an independent list it is free to mutate.\n        \"\"\"\n        return self._default_labels\n\n    def defaults(self):\n        \"\"\"Return (priority, starter_labels) for a new issue from this template.\"\"\"\n        return self.priority, self.starter_labels()\n\n\nBUILTIN_TEMPLATES = {\n    \"bug\": IssueTemplate(\"bug\", Priority.HIGH, [\"bug\", \"needs-triage\"]),\n    \"feature\": IssueTemplate(\"feature\", Priority.MEDIUM, [\"feature\"]),\n    \"chore\": IssueTemplate(\"chore\", Priority.LOW, [\"chore\"]),\n    \"incident\": IssueTemplate(\"incident\", Priority.CRITICAL, [\"incident\", \"needs-triage\"]),\n}\n\n\ndef get_template(name):\n    if name not in BUILTIN_TEMPLATES:\n        raise KeyError(\"unknown template: %r\" % (name,))\n    return BUILTIN_TEMPLATES[name]\n"
+  },
+  {
+    "turn": 5,
+    "assistant": "ACTION: read_file tracker/service/tracker_service.py",
+    "action": {
+      "tool": "read_file",
+      "arg": "tracker/service/tracker_service.py",
+      "content": null
+    },
+    "in": 2480,
+    "out": 11
+  },
+  {
+    "turn": 5,
+    "observation": "\"\"\"The TrackerService facade: creates and mutates issues via the store, records\nevents, and enforces validation. This is the seam the CLI/router talks to.\"\"\"\nfrom ..domain.issue import Issue\nfrom ..domain.templates import get_template\nfrom .store import InMemoryStore\nfrom .events import EventLog\nfrom . import validators\n\n\nclass TrackerError(Exception):\n    pass\n\n\nclass TrackerService:\n    def __init__(self, store=None, events=None):\n        self.store = store or InMemoryStore()\n        self.events = events or EventLog()\n\n    # ---- creation ---------------------------------------------------------\n    def create_issue(self, title, priority=None, labels=None, template=None):\n        \"\"\"Create and store a new issue.\n\n        If `template` is given, the new issue is seeded from that template's\n        priority and starter labels. Any explicit `labels` are added on top.\n        \"\"\"\n        title = validators.validate_title(title)\n\n        if template is not None:\n            tmpl = get_template(template)\n            tmpl_priority, seed_labels = tmpl.defaults()\n            eff_priority = priority or tmpl_priority\n        else:\n            eff_priority = priority or \"medium\"\n            seed_labels = list(labels) if labels else []\n\n        eff_priority = validators.validate_priority(eff_priority)\n\n        issue = Issue(self.store.next_id(), title, eff_priority, seed_labels)\n\n        # explicit labels (from the caller) are layered on top of the template\n        if template is not None and labels:\n            for lab in labels:\n                issue.add_label(validators.normalize_label(lab))\n\n        self.store.put(issue)\n        self.events.record(\"issue_created\", id=issue.id, template=template)\n        return issue\n\n    # ---- lookups ----------------------------------------------------------\n    def get_issue(self, issue_id):\n        issue = self.store.get(issue_id)\n        if issue is None:\n            raise TrackerError(\"no such issue: %s\" % issue_id)\n        return issue\n\n    def all_issues(self):\n        return self.store.all()\n\n    # ---- mutations --------------------------------------------------------\n    def add_label(self, issue_id, label):\n        issue = self.get_issue(issue_id)\n        label = validators.normalize_label(label)\n        issue.add_label(label)\n        self.events.record(\"label_added\", id=issue_id, label=label)\n        return issue\n\n    def set_status(self, issue_id, status):\n        issue = self.get_issue(issue_id)\n        status = validators.validate_status(status)\n        issue.set_status(status)\n        self.events.record(\"status_changed\", id=issue_id, status=status)\n        return issue\n\n    def comment(self, issue_id, author, text):\n        issue = self.get_issue(issue_id)\n        n = issue.add_comment(author, text)\n        self.events.record(\"commented\", id=issue_id, author=author)\n        return n\n"
+  },
+  {
+    "turn": 6,
+    "assistant": "ACTION: write_file tracker/domain/templates.py\n```python\n\"\"\"Issue templates.\n\nA template is a reusable preset (priority + a starter set of labels) that new\nissues are stamped from. For example the \"bug\" template starts every new issue\nwith the labels [\"bug\", \"needs-triage\"].\n\nBecause the same template is used to create many issues, a template must hand\neach new issue a *fresh* copy of its starter labels. If two issues ended up\nsharing one label list, adding a label to one would leak into the other.\n\"\"\"\nfrom .enums import Priority\n\n\nclass IssueTemplate:\n    def __init__(self, name, priority, default_labels):\n        self.name = name\n        self.priority = priority\n        # canonical starter labels for this template (never handed out directly)\n        self._default_labels = list(default_labels)\n\n    def starter_labels(self):\n        \"\"\"Return the starter labels to seed a new issue with.\n\n        Each caller gets an independent list it is free to mutate.\n        \"\"\"\n        return list(self._default_labels)  # Return a fresh copy\n\n    def defaults(self):\n        \"\"\"Return (priority, starter_labels) for a new issue from this template.\"\"\"\n        return self.priority, self.starter_labels()\n\n\nBUILTIN_TEMPLATES = {\n    \"bug\": IssueTemplate(\"bug\", Priority.HIGH, [\"bug\", \"needs-triage\"]),\n    \"feature\": IssueTemplate(\"feature\", Priority.MEDIUM, [\"feature\"]),\n    \"chore\": IssueTemplate(\"chore\", Priority.LOW, [\"chore\"]),\n    \"incident\": IssueTemplate(\"incident\", Priority.CRITICAL, [\"incident\", \"needs-triage\"]),\n}\n\n\ndef get_template(name):\n    if name not in BUILTIN_TEMPLATES:\n        raise KeyError(\"unknown template: %r\" % (name,))\n    return BUILTIN_TEMPLATES[name]\n```",
+    "action": {
+      "tool": "write_file",
+      "arg": "tracker/domain/templates.py",
+      "content": "\"\"\"Issue templates.\n\nA template is a reusable preset (priority + a starter set of labels) that new\nissues are stamped from. For example the \"bug\" template starts every new issue\nwith the labels [\"bug\", \"needs-triage\"].\n\nBecause the same template is used to create many issues, a template must hand\neach new issue a *fresh* copy of its starter labels. If two issues ended up\nsharing one label list, adding a label to one would leak into the other.\n\"\"\"\nfrom .enums import Priority\n\n\nclass IssueTemplate:\n    def __init__(self, name, priority, default_labels):\n        self.name = name\n        self.priority = priority\n        # canonical starter labels for this template (never handed out directly)\n        self._default_labels = list(default_labels)\n\n    def starter_labels(self):\n        \"\"\"Return the starter labels to seed a new issue with.\n\n        Each caller gets an independent list it is free to mutate.\n        \"\"\"\n        return list(self._default_labels)  # Return a fresh copy\n\n    def defaults(self):\n        \"\"\"Return (priority, starter_labels) for a new issue from this template.\"\"\"\n        return self.priority, self.starter_labels()\n\n\nBUILTIN_TEMPLATES = {\n    \"bug\": IssueTemplate(\"bug\", Priority.HIGH, [\"bug\", \"needs-triage\"]),\n    \"feature\": IssueTemplate(\"feature\", Priority.MEDIUM, [\"feature\"]),\n    \"chore\": IssueTemplate(\"chore\", Priority.LOW, [\"chore\"]),\n    \"incident\": IssueTemplate(\"incident\", Priority.CRITICAL, [\"incident\", \"needs-triage\"]),\n}\n\n\ndef get_template(name):\n    if name not in BUILTIN_TEMPLATES:\n        raise KeyError(\"unknown template: %r\" % (name,))\n    return BUILTIN_TEMPLATES[name]\n"
+    },
+    "in": 3077,
+    "out": 382
+  },
+  {
+    "turn": 6,
+    "observation": "WROTE tracker/domain/templates.py (1629 bytes)"
+  },
+  {
+    "turn": 7,
+    "assistant": "ACTION: finish",
+    "action": {
+      "tool": "finish",
+      "arg": "",
+      "content": null
+    },
+    "in": 3487,
+    "out": 4
+  }
+]

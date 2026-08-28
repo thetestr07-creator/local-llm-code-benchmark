@@ -1,0 +1,17 @@
+{
+  "model": "Claude Sonnet 4.6",
+  "task": "review-02-ledger",
+  "category": "review",
+  "turns": 10,
+  "input_tokens": 68456,
+  "output_tokens": 10465,
+  "ttft_s": 12.176,
+  "wall_s": 151.4,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 2,
+    "run_command": 6,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.3623
+}

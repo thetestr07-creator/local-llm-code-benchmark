@@ -1,0 +1,14 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "failrecover-01-roman",
+  "category": "failrecover",
+  "turns": 2,
+  "input_tokens": 901,
+  "output_tokens": 138,
+  "ttft_s": 1.085,
+  "wall_s": 4.4,
+  "tool_calls": {
+    "list_files": 1
+  },
+  "api_cost_usd": 0.0002
+}

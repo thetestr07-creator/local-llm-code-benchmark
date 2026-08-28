@@ -1,0 +1,16 @@
+{
+  "model": "Qwen2.5-Coder-14B",
+  "task": "testexec-01-stats",
+  "category": "testexec",
+  "turns": 4,
+  "input_tokens": 1843,
+  "output_tokens": 183,
+  "ttft_s": 1.281,
+  "wall_s": 11.7,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1
+  },
+  "api_cost_usd": 0.0
+}

@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "multiedit-02-ratelimit",
+  "category": "multiedit",
+  "turns": 1,
+  "input_tokens": 952,
+  "output_tokens": 33,
+  "ttft_s": 1.151,
+  "wall_s": 1.2,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}

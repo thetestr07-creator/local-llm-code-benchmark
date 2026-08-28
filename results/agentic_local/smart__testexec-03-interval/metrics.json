@@ -1,0 +1,17 @@
+{
+  "model": "Qwen3-30B-A3B",
+  "task": "testexec-03-interval",
+  "category": "testexec",
+  "turns": 5,
+  "input_tokens": 8235,
+  "output_tokens": 1112,
+  "ttft_s": 2.56,
+  "wall_s": 25.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

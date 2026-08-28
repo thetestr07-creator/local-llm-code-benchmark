@@ -1,0 +1,17 @@
+{
+  "model": "Phi-4",
+  "task": "failrecover-03-flatten",
+  "category": "failrecover",
+  "turns": 5,
+  "input_tokens": 2971,
+  "output_tokens": 483,
+  "ttft_s": 1.171,
+  "wall_s": 26.1,
+  "tool_calls": {
+    "list_files": 1,
+    "read_file": 1,
+    "write_file": 1,
+    "run_command": 1
+  },
+  "api_cost_usd": 0.0
+}

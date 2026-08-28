@@ -1,0 +1,6 @@
+{
+  "task": "bugfix-02-date-range",
+  "category": "bugfix",
+  "passed": true,
+  "exit_code": 0
+}

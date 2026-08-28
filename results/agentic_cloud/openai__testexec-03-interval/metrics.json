@@ -1,0 +1,12 @@
+{
+  "model": "GPT-oss-120b (DO)",
+  "task": "testexec-03-interval",
+  "category": "testexec",
+  "turns": 1,
+  "input_tokens": 910,
+  "output_tokens": 39,
+  "ttft_s": 1.298,
+  "wall_s": 1.3,
+  "tool_calls": {},
+  "api_cost_usd": 0.0001
+}
