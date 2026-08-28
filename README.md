@@ -16,6 +16,11 @@ was produced — nothing was re-run or cleaned up for release.
 | GPT-oss-120b | cloud (DigitalOcean) | — |
 
 ## Results
+
+> **Newer (2026) models** — Qwen3-Coder-30B-A3B, Gemma-3-27B, Devstral, Qwen3-14B — were run on this
+> exact same frozen harness. See **[`2026-REFRESH.md`](2026-REFRESH.md)**. (Short version: Qwen3-Coder-30B-A3B
+> scored **92.1** HumanEval / 85.2 MBPP.)
+
 ### Code — pass@1 (every solution's code executed against the real unit tests)
 | Model | HumanEval | MBPP |
 |---|---|---|
